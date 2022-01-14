@@ -17,7 +17,7 @@ export default {
     onAuthBClick() {
       const params = {
         client_id: process.env.VUE_APP_CLIENT_ID,
-        redirect_uri: window.location.href,
+        redirect_uri: process.env.VUE_APP_REDIRECT_URL,
         response_type: "code",
         state: "ZHDIE7X",
       };
