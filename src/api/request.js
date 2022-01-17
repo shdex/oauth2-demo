@@ -12,4 +12,18 @@ service.interceptors.request.use((config) => {
   return config;
 });
 
+service.interceptors.response.use(
+  (response) => {
+    const res = response.data;
+    if (res.code === 200) {
+      return res.data;
+    } else {
+      return res;
+    }
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default service;

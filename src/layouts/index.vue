@@ -1,40 +1,74 @@
 <template>
-  <el-container>
-    <el-aside>
-      <el-menu default-active="2" class="el-menu-vertical-demo">
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
-          </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item one</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
+  <el-container class="common-layout" style="height: 100vh">
+    <el-aside width="200px" style="background-color: #08254f">
+      <el-menu
+        router
+        active-text-color="#ffd04b"
+        background-color="#08254f"
+        text-color="#fff"
+        class="el-menu-vertical-demo"
+      >
+        <el-menu-item :route="{ path: '/order/list' }" index="2">
           <el-icon><icon-menu /></el-icon>
-          <span>Navigator Two</span>
+          <span>工单列表</span>
         </el-menu-item>
-        <el-menu-item index="3" disabled>
+        <el-menu-item index="3">
           <el-icon><document /></el-icon>
-          <span>Navigator Three</span>
+          <span>交付数据信息反馈</span>
         </el-menu-item>
         <el-menu-item index="4">
           <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
+          <span>交付凭证推送反馈</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
-    <el-main> main </el-main>
+    <el-container>
+      <el-header>
+        <a href="javascript:;" class="logout" @click="logout">退出</a>
+      </el-header>
+      <el-main>
+        <router-view />
+      </el-main>
+    </el-container>
   </el-container>
 </template>
 
-<script></script>
+<script>
+import { Document, Menu as IconMenu, Setting } from "@element-plus/icons-vue";
+export default {
+  name: "RouteLayout",
+  components: {
+    Document,
+    IconMenu,
+    Setting,
+  },
+  methods: {
+    logout() {
+      window.localStorage.clear();
+      this.$router.replace("/");
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.el-menu-vertical-demo {
+  min-height: 100vh;
+  border-right: none;
+}
+
+.common-layout {
+  .el-header {
+    background-color: var(--el-color-white);
+    color: #08254f;
+    text-align: right;
+    line-height: 60px;
+    -webkit-box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  }
+}
+
+.logout {
+  color: #08254f;
+}
+</style>
