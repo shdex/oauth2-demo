@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ElMessage } from "element-plus";
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
@@ -22,6 +23,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
+    ElMessage.error(JSON.stringify(error));
     return Promise.reject(error);
   }
 );

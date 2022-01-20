@@ -1,61 +1,55 @@
 <template>
   <div>
-    <div>
-      <span>status:</span>
-      <tag-status :status="taskInfo.status"></tag-status>
-    </div>
-    <div>
-      <span>seller:</span>
-      <span>{{ taskInfo.seller }}</span>
-    </div>
-    <div>
-      <span>beginTime:</span>
-      <span>{{ taskInfo.beginTime }}</span>
-    </div>
-    <div>
-      <span>buyer:</span>
-      <span>{{ taskInfo.buyer }}</span>
-    </div>
-    <div>
-      <span>role:</span>
-      <span>{{ taskInfo.role }}</span>
-    </div>
-    <div>
-      <span>limitDataNumber:</span>
-      <span>{{ taskInfo.limitDataNumber }}</span>
-    </div>
-    <div>
-      <span>dataScheme:</span>
-      <table border="1">
-        <tr v-for="(item, i) in taskInfo.dataScheme" :key="i">
-          <td>{{ item.itemName }}</td>
-          <td>{{ item.itemType }}</td>
-        </tr>
-      </table>
-    </div>
+    <el-descriptions :column="3" border class="work-detail">
+      <el-descriptions-item label="工单编号">
+        {{ taskInfo.taskId }}
+      </el-descriptions-item>
+      <el-descriptions-item label="status">
+        <tag-status :status="taskInfo.status"></tag-status>
+      </el-descriptions-item>
+      <el-descriptions-item label="seller">
+        <span>{{ taskInfo.seller }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="beginTime:">
+        <span>{{ taskInfo.beginTime }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="buyer">
+        <span>{{ taskInfo.buyer }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="role">
+        <span>{{ taskInfo.role }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="limitDataNumber">
+        <span>{{ taskInfo.limitDataNumber }}</span>
+      </el-descriptions-item>
+      <el-descriptions-item label="dataScheme">
+        <table border="1">
+          <tr v-for="(item, i) in taskInfo.dataScheme" :key="i">
+            <td>{{ item.itemName }}</td>
+            <td>{{ item.itemType }}</td>
+          </tr>
+        </table>
+      </el-descriptions-item>
+    </el-descriptions>
   </div>
 </template>
 
 <script>
 import { getOrderDetailById } from "@/api/index";
-import contanst from "@/utils/contanst.js";
+import { getLabel } from "@/utils/contanst.js";
 import TagStatus from "./components/TagStatus.vue";
 export default {
   name: "WorkOrderDetail",
   data() {
     return {
       taskInfo: {},
-      contanst,
     };
   },
   components: {
     TagStatus,
   },
   methods: {
-    getLabel(v) {
-      if (!v) return;
-      return contanst.delivery_status.find((item) => item.value == v).label;
-    },
+    getLabel,
   },
   async created() {
     try {

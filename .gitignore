@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+/dex-oauth2-demo
 
 
 # local env files

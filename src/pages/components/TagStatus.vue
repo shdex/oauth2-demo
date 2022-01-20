@@ -1,11 +1,11 @@
 <template>
   <div class="tag" :class="[`tag_${status}`]">
-    <span>{{ getLabel(status) }}</span>
+    <span>{{ getLabel("delivery_status", status) }}</span>
   </div>
 </template>
 
 <script>
-import contanst from "@/utils/contanst.js";
+import { getLabel } from "@/utils/contanst.js";
 export default {
   props: {
     status: {
@@ -15,10 +15,7 @@ export default {
     },
   },
   methods: {
-    getLabel(v) {
-      if (!v) return;
-      return contanst.delivery_status.find((item) => item.value == v).label;
-    },
+    getLabel,
   },
 };
 </script>

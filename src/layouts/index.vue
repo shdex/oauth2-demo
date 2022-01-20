@@ -10,13 +10,13 @@
       >
         <el-menu-item :route="{ path: '/order/list' }" index="2">
           <el-icon><icon-menu /></el-icon>
-          <span>工单列表</span>
+          <span>交付工单列表</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item :route="{ path: '/delivery/logs' }" index="3">
           <el-icon><document /></el-icon>
           <span>交付数据信息反馈</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item :route="{ path: '/delivery/proof' }" index="4">
           <el-icon><setting /></el-icon>
           <span>交付凭证推送反馈</span>
         </el-menu-item>

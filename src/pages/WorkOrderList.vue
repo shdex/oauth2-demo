@@ -3,16 +3,27 @@
     <div v-if="list.length">
       <div class="oreder-list" v-for="item in list" :key="item.taskId">
         <div class="oreder-list__ft">
-          <label>工单编号：{{ item.orderNo }}</label>
-          <span> <label>工单创建时间：：</label> {{ item.createTime }}</span>
-          <span><label>交付开始时间：</label> {{ item.beginTime }}</span>
+          <span class="order-item">
+            {{ item.productName }}
+            <span class="order-text">{{ getLabel("dataType", item.productType) }}</span>
+          </span>
+          <label>交付订单编号：{{ item.orderNo }}</label>
+          <label>交付工单编号：{{ item.taskId }}</label>
           <tag-status :status="item.status"></tag-status>
         </div>
         <div class="oreder-list__bd">
-          <span class="order-item">{{ item.productName }}</span>
-          <span class="order-text">{{ item.productType }}</span>
+          <span> <label>交付工单创建时间：：</label> {{ item.createTime }}</span>
+          <span><label>交付开始时间：</label> {{ item.beginTime }}</span>
           <router-link class="operation" :to="{ path: `/order/list/${item.taskId}` }">查看详情</router-link>
         </div>
+      </div>
+      <div style="margin-top: 10px">
+        <dex-pagination
+          :total="total"
+          :page="formdata.page"
+          :limit="formdata.limit"
+          @pagination="handleChange"
+        ></dex-pagination>
       </div>
     </div>
     <div v-else>暂无数据</div>
@@ -22,26 +33,55 @@
 <script>
 import { getOrderList } from "@/api/index";
 import TagStatus from "./components/TagStatus.vue";
-export default {
-  components: { TagStatus },
+import DexPagination from "@/components/Pagination/index.vue";
+import { defineComponent } from "vue-demi";
+import { getLabel } from "@/utils/contanst";
+
+export default defineComponent({
+  components: { TagStatus, DexPagination },
   name: "WorkOrderList",
   data() {
     return {
       list: [],
       vLoading: true,
+      total: 0,
+      formdata: {
+        limit: 10,
+        page: 1,
+      },
     };
   },
   async mounted() {
-    try {
-      const result = await getOrderList();
-      this.list = result.list;
-      this.vLoading = false;
-    } catch (error) {
-      console.log(error);
-      this.vLoading = false;
-    }
+    this.fetchData();
   },
-};
+  watch: {
+    formdata: {
+      handler() {
+        this.fetchData();
+      },
+    },
+  },
+  methods: {
+    getLabel,
+    async fetchData() {
+      try {
+        const result = await getOrderList(this.formdata);
+        this.list = result.list;
+        this.total = result.total;
+        this.vLoading = false;
+      } catch (error) {
+        this.vLoading = false;
+      }
+    },
+    handleChange({ limit, page }) {
+      console.log(limit, page);
+      this.formdata = {
+        limit,
+        page,
+      };
+    },
+  },
+});
 </script>
 
 <style lang="scss">

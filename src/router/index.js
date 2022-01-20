@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import OAuth from "@/pages/OAuth.vue";
 import WorkOrderList from "@/pages/WorkOrderList.vue";
 import WorkOrderDetail from "@/pages/WorkOrderDetail.vue";
+import DeliveryLogs from "@/pages/DeliveryLogs.vue";
+import DeliveryProof from "@/pages/DeliveryProof.vue";
 import RouteLayout from "@/layouts/index.vue";
 
 const router = createRouter({
@@ -25,6 +27,16 @@ const router = createRouter({
           path: "/order/list/:id",
           name: "orderDetail",
           component: WorkOrderDetail,
+        },
+        {
+          path: "/delivery/logs",
+          name: "deliveryLogs",
+          component: DeliveryLogs,
+        },
+        {
+          path: "/delivery/proof",
+          name: "deliveryProof",
+          component: DeliveryProof,
         },
       ],
     },
