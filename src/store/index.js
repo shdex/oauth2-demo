@@ -18,7 +18,6 @@ const store = createStore({
     async code2jwtToken({ commit }, code) {
       return code2jwtToken({
         code: code,
-        redirect_uri: encodeURIComponent(process.env.VUE_APP_REDIRECT_URL),
       }).then((token) => {
         commit("SET_TOKEN", token);
       });

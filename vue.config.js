@@ -4,7 +4,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       "/auth-demo": {
-        target: "http://10.8.16.148:8083/",
+        target: "http://10.8.16.252:8083/", // 后端代理接口地址
         changeOrigin: true,
       },
     },

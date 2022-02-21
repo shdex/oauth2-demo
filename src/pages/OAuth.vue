@@ -1,29 +1,13 @@
 <template>
   <div class="oauth-btn" @click="onAuthBClick">
     <img src="../assets/logo.png" style="width: 36px" alt="" srcset="" />
-    <div class="oauth-btn__text">上海数据交易所授权登录</div>
+    <a href="/auth-demo/requestCode" class="oauth-btn__text">上海数据交易所授权登录</a>
   </div>
 </template>
 
 <script>
-import qs from "qs";
-
 export default {
   name: "OAuth",
-  mounted() {
-    console.log(this.$store.state.count);
-  },
-  methods: {
-    onAuthBClick() {
-      const params = {
-        client_id: process.env.VUE_APP_CLIENT_ID,
-        redirect_uri: process.env.VUE_APP_REDIRECT_URL,
-        response_type: "code",
-        state: "ZHDIE7X",
-      };
-      window.location.href = process.env.VUE_APP_OAUTH_URL + qs.stringify(params);
-    },
-  },
 };
 </script>
 
@@ -46,6 +30,7 @@ export default {
     flex: 1;
     text-align: center;
     font-size: 14px;
+    color: #fff;
   }
 }
 </style>
